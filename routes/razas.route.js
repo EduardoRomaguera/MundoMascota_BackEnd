@@ -1,41 +1,41 @@
 'use strict';
 const express = require('express');
-const Vacuna = require('../models/vacunas.model');
+const Raza = require('../models/razas.model');
 const router = express.Router();
 
 
 
-router.post('/registrar-vacuna', (req, res) => {
-    let nueva_vacuna = new Vacuna({
+router.post('/registrar-raza', (req, res) => {
+    let nueva_raza = new Raza({
         nombre: req.body.nombre,
         especie: req.body.expecie,
         estado: 'Activo'
     });
-    nueva_vacuna.save((error) => {
+    nueva_raza.save((error) => {
         if (error) {
             res.json({
-                msj: 'Ocurrió un error al registrar la vacuna',
+                msj: 'Ocurrió un error al registrar la raza',
                 error
             });
         } else {
             res.json({
-                msj: 'La vacuna se registró correctamente'
+                msj: 'La raza se registró correctamente'
             });
         }
     });
 });
 
 
-router.get('/listar-vacunas', (req, res) => {
-    Vacuna.find((error, vacunas) => {
+router.get('/listar-razas', (req, res) => {
+    Raza.find((error, razas) => {
         if (error) {
             res.json({
-                msj: 'Ocurrió un error al listar las vacunas',
+                msj: 'Ocurrió un error al listar las razas',
                 error
             });
         } else {
             res.json({
-                vacunas
+                razas
             });
         }
     });
