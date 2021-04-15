@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/registrar-vacuna', (req, res) => {
     let nueva_vacuna = new Vacuna({
         nombre: req.body.nombre,
-        especie: req.body.expecie,
+        especie: req.body.especie,
         estado: 'Activo'
     });
     nueva_vacuna.save((error) => {
