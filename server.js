@@ -58,11 +58,15 @@ function handleError(res, reason, message, code) {
 app.use('/api', require('./routes/vacunas.route'));
 app.use('/api', require('./routes/razas.route'));
 app.use('/api', require('./routes/padecimientos.route'));
+<<<<<<< Updated upstream
 
 //Usuarios//
 app.use('/api', require('./routes/usuarios.route'));
 app.use('/api', require('./routes/acciones.route'));
 
+=======
+app.use('/api', require('./routes/usuarios.route'));
+>>>>>>> Stashed changes
 //
 //app.use('/api', require('./routes/rutinas.route'));
 //app.use('/api', require('./routes/usuarios.route'));
