@@ -6,12 +6,12 @@ const router = express.Router();
 
 
 router.post('/registrar-padecimiento', (req, res) => {
-    let nuevo_padecimeinto = new Padecimiento({
+    let nuevoPadecimiento = new Padecimiento({
         nombre: req.body.nombre,
         especie: req.body.expecie,
         estado: 'Activo'
     });
-    nuevo_padecimiento.save((error) => {
+    nuevoPadecimiento.save((error) => {
         if (error) {
             res.json({
                 msj: 'Ocurrió un error al registrar el padecimiento',

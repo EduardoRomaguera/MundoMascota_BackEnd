@@ -6,12 +6,12 @@ const router = express.Router();
 
 
 router.post('/registrar-vacuna', (req, res) => {
-    let nueva_vacuna = new Vacuna({
+    let nuevaVacuna = new Vacuna({
         nombre: req.body.nombre,
         especie: req.body.especie,
         estado: 'Activo'
     });
-    nueva_vacuna.save((error) => {
+    nuevaVacuna.save((error) => {
         if (error) {
             res.json({
                 msj: 'Ocurrió un error al registrar la vacuna',

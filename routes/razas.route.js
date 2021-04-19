@@ -6,12 +6,12 @@ const router = express.Router();
 
 
 router.post('/registrar-raza', (req, res) => {
-    let nueva_raza = new Raza({
+    let nuevaRaza = new Raza({
         nombre: req.body.nombre,
         especie: req.body.expecie,
         estado: 'Activo'
     });
-    nueva_raza.save((error) => {
+    nuevaRaza.save((error) => {
         if (error) {
             res.json({
                 msj: 'Ocurrió un error al registrar la raza',
