@@ -1,76 +1,39 @@
 'use strict';
-const express = require('express'); <<
-<< << < Updated upstream
-const Usuario = require('../models/usuarios.model');
+const express = require('express');
 const router = express.Router();
+const Usuario = require('../models/usuarios.model');
 
+router.post('/registrar-usuario-proveedor', (req, res) => {
 
-
-router.post('/registrar-usuario', (req, res) => {
-let nuevoUsuario = new Usuario({
-    correo: req.body.correo,
-    nombre: req.body.nombre,
-    nacimiento: req.body.nacimiento,
-    sexo: req.body.sexo,
-    tipo: req.body.tipo,
-    contrasenna: req.body.contrasenna,
-    estado: req.body.estado
-});
-nuevoUsuario.save((error) => { ===
-    === =
-    const router = express.Router();
-    const Usuario = require('../models/usuarios.model');
-
-    router.post('/registrar-usuario-proveedor', (req, res) => {
-
-        let nuevoUsuarioProveedor = new Usuario({
-            nombreNegocio: req.body.correo,
-            nombre: req.body.nombre,
-            apellido1: req.body.nacimiento,
-            apellido2: req.body.sexo,
-            identificacion: req.body.tipo,
-            estado: 'Activo'
-        });
-        nuevoUsuarioProveedor.save((error) => { >>>
-            >>> > Stashed changes
-            if (error) {
-                res.json({
-                    msj: 'Ocurrió un error al registrar el usuario',
-                    error
-                });
-            } else {
-                res.json({ <<
-                    << << < Updated upstream
-                    msj: 'El usuario se registró correctamente'
-                });
-            }
-        });
+    let nuevoUsuarioProveedor = new Usuario({
+        nombreNegocio: req.body.correo,
+        nombre: req.body.nombre,
+        apellido1: req.body.nacimiento,
+        apellido2: req.body.sexo,
+        identificacion: req.body.tipo,
+        estado: 'Activo'
     });
+    nuevoUsuarioProveedor.save((error) => {
+        if (error) {
+            res.json({
+                msj: 'Ocurrió un error al registrar el usuario',
+                error
+            });
+        } else {
+            res.json({
+                msj: 'El usuario se registró adecuadamente'
+            });
+        }
 
-
-    ===
-    === =
-    msj: 'El usuario se registró adecuadamente'
-});
-}
-
-});
+    });
 
 });
 // Solo se ha modificado el registrar-usuario-proveedor, lo de abajo esta pendiente...
->>>
->>> > Stashed changes
 router.get('/listar-usuarios', (req, res) => {
     Usuario.find((error, usuarios) => {
         if (error) {
-            res.json({ <<
-                << << < Updated upstream
-                msj: 'Ocurrió un error al listar las vacunas',
-                ===
-                === =
+            res.json({
                 msj: 'Ocurrió un error al listar los usuarios',
-                >>>
-                >>> > Stashed changes
                 error
             });
         } else {
@@ -81,25 +44,20 @@ router.get('/listar-usuarios', (req, res) => {
     });
 });
 
-<<
-<< << < Updated upstream
-
-    ===
-    === =
-    router.get('/buscar-usuario-id', (req, res) => {
-        Usuario.findOne({ _id: req.query._id }, (error, usuario) => {
-            if (error) {
-                res.json({
-                    msj: 'Ocurrió un error al listar el usuario',
-                    error
-                });
-            } else {
-                res.json({
-                    usuario
-                });
-            }
-        });
+router.get('/buscar-usuario-id', (req, res) => {
+    Usuario.findOne({ _id: req.query._id }, (error, usuario) => {
+        if (error) {
+            res.json({
+                msj: 'Ocurrió un error al listar el usuario',
+                error
+            });
+        } else {
+            res.json({
+                usuario
+            });
+        }
     });
+});
 
 router.get('/buscar-usuario-correo', (req, res) => {
     Usuario.findOne({ correo: req.query.correo }, (error, usuario) => {
@@ -196,6 +154,5 @@ router.post('/validar-credenciales', (req, res) => {
 
     });
 
-}); >>>
->>> > Stashed changes
+});
 module.exports = router;
