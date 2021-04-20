@@ -40,5 +40,28 @@ router.get('/listar-especies', (req, res) => {
     });
 });
 
+router.put('/modificar-especie', (req, res) => {
+    let objEspecie = JSON.parse(req.body.obj);
+    Especie.updateOne({ _id: objEspecie._id }, {
+        $set: {
+            nombre: objEspecie.nombre,
+            estado: objEspecie.estado
+        }
+    }, (err, info) => {
+        if (err) {
+            res.json({
+                msj: 'No se pudo modificar la especie',
+                err
+            });
+        } else {
+            res.json({
+                info
+            });
+        }
+    });
+
+});
+
+
 
 module.exports = router;
