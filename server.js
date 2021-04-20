@@ -58,6 +58,7 @@ function handleError(res, reason, message, code) {
 app.use('/api', require('./routes/vacunas.route'));
 app.use('/api', require('./routes/razas.route'));
 app.use('/api', require('./routes/padecimientos.route'));
+app.use('/api', require('./routes/especies.route'));
 
 //Usuarios//
 app.use('/api', require('./routes/usuarios.route'));
