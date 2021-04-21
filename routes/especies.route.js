@@ -40,13 +40,27 @@ router.get('/listar-especies', (req, res) => {
     });
 });
 
-router.put('/modificar-especie', (req, res) => {
-    let objEspecie = JSON.parse(req.body.obj);
-    Especie.updateOne({ _id: objEspecie._id }, {
-        $set: {
-            nombre: objEspecie.nombre,
-            estado: objEspecie.estado
+
+router.get('/buscar-especie-id', (req, res) => {
+    Especie.findOne({ _id: req.query._id }, (error, especie) => {
+        if (error) {
+            res.json({
+                msj: 'Ocurrió un error al listar la especie',
+                error
+            });
+        } else {
+            res.json({
+                especie
+            });
         }
+    });
+});
+
+
+
+router.put('/modificar-especie', (req, res) => {
+    Especie.updateOne({ _id: req.query._id }, {
+        $set: req.body
     }, (err, info) => {
         if (err) {
             res.json({
@@ -62,6 +76,20 @@ router.put('/modificar-especie', (req, res) => {
 
 });
 
+router.delete('/eliminar-especie', (req, res) => {
 
+    Especie.deleteOne({ _id: req.body._id }, (error) => {
+        if (error) {
+            res.json({
+                msj: 'Ocurrió un error al eliminar la especie',
+                error
+            });
+        } else {
+            res.json({
+                msj: 'Especie eliminada'
+            });
+        }
+    })
+});
 
 module.exports = router;
