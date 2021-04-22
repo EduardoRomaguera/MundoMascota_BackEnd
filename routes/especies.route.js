@@ -40,24 +40,6 @@ router.get('/listar-especies', (req, res) => {
     });
 });
 
-
-router.get('/buscar-especie-id', (req, res) => {
-    Especie.findOne({ _id: req.query._id }, (error, especie) => {
-        if (error) {
-            res.json({
-                msj: 'Ocurrió un error al listar la especie',
-                error
-            });
-        } else {
-            res.json({
-                especie
-            });
-        }
-    });
-});
-
-
-
 router.put('/modificar-especie', (req, res) => {
     Especie.updateOne({ _id: req.query._id }, {
         $set: req.body
