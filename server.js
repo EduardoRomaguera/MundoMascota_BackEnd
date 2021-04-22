@@ -60,5 +60,4 @@ app.use('/api', require('./routes/especies.route'));
 
 //Usuarios//
 app.use('/api', require('./routes/usuarios.route'));
-app.use('/api', require('./routes/clientes.route'));
 //app.use('/api', require('./routes/acciones.route'));
