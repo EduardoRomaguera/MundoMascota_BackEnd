@@ -89,7 +89,7 @@ router.delete('/eliminar-especie', (req, res) => {
                 msj: 'Especie eliminada'
             });
         }
-    })
+    });
 });
 
 module.exports = router;
