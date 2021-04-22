@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const Usuario = require('../models/usuarios.model');
+const mailTemplate = require('../templates/registro-usuario');
 
 router.post('/registrar-usuario-proveedor', (req, res) => {
 
@@ -20,6 +21,8 @@ router.post('/registrar-usuario-proveedor', (req, res) => {
                 error
             });
         } else {
+
+            mailTemplate.enviar_mail(req.body.nombre, req.body.correo);
             res.json({
                 msj: 'El usuario se registró adecuadamente'
             });
