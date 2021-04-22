@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/registrar-especie', (req, res) => {
     let nuevaEspecie = new Especie({
         nombre: req.body.nombre,
-        estado: 'Activo'
+        estado: req.body.estado
     });
     nuevaEspecie.save((error) => {
         if (error) {
@@ -41,7 +41,7 @@ router.get('/listar-especies', (req, res) => {
 });
 
 router.put('/modificar-especie', (req, res) => {
-    Especie.updateOne({ _id: req.query._id }, {
+    Especie.updateOne({ _id: req.body._id }, {
         $set: req.body
     }, (err, info) => {
         if (err) {
@@ -60,7 +60,7 @@ router.put('/modificar-especie', (req, res) => {
 
 router.delete('/eliminar-especie', (req, res) => {
 
-    Especie.deleteOne({ _id: req.body._id }, (error) => {
+    Especie.deleteOne({ pid }, (error) => {
         if (error) {
             res.json({
                 msj: 'Ocurrió un error al eliminar la especie',
