@@ -8,8 +8,6 @@ require('dotenv').config();
 
 //Se declaran todos los accesos de los archivos routes.
 
-
-
 const app = express();
 app.use(cors());
 app.use(express.static(__dirname + "/public"));
@@ -63,7 +61,3 @@ app.use('/api', require('./routes/especies.route'));
 //Usuarios//
 app.use('/api', require('./routes/usuarios.route'));
 //app.use('/api', require('./routes/acciones.route'));
-
-//
-//app.use('/api', require('./routes/rutinas.route'));
-//app.use('/api', require('./routes/usuarios.route'));
