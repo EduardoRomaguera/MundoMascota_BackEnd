@@ -13,7 +13,7 @@ this.enviar_mail = (pnombre, pcorreo) => {
 
     let mail_options = {
         from: 'sochisoftware2021@gmail.com',
-        to: '',
+        to: pcorreo,
         subject: `Bienvenido ${pnombre}`,
         html: ` 
         <table border="0" cellpadding="0" cellspacing="0" width="600px" background-color="#2d3436" bgcolor="#2d3436">
@@ -22,6 +22,11 @@ this.enviar_mail = (pnombre, pcorreo) => {
                 <h1 style="color: #fff; text-align:center">Bienvenido</h1>
                 <p  style="color: #fff; text-align:center">
                     <span style="color: #e84393">${pnombre}</span> 
+                    a la aplicación
+                </p>
+                <p  style="color: #fff; text-align:center">
+                Su correo
+                    <span style="color: #e84393">${pcorreo}</span> 
                     a la aplicación
                 </p>
             </td>
