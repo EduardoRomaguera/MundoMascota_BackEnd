@@ -10,7 +10,7 @@ const schema_cliente = new mongoose.Schema({
     identificacion: { type: String, required: true, unique: true },
     estado: { type: String, required: true, unique: false },
     tipo: { type: String, required: true, unique: false },
-    nacimiento: { type: String, required: true, unique: false },
+    nacimiento: { type: Date, required: true, unique: false },
     provincia: { type: String, reqired: true, unique: false },
     canton: { type: String, reqired: true, unique: false },
     distrito: { type: String, reqired: true, unique: false },
