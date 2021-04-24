@@ -15,7 +15,7 @@ const schema_usuario = mongoose.Schema({
     provincia: { type: String, required: true, unique: false },
     canton: { type: String, required: true, unique: false },
     distrito: { type: String, required: true, unique: false },
-    otrasSenas: { type: String, required: false, unique: false },
+    otrasSenas: { type: String, required: true, unique: false },
     horario: { type: String, required: true, unique: false },
     enlaceFacebook : { type: String, required: false, unique: false },
     enlaceInstagram : { type: String, required: false, unique: false },

@@ -27,6 +27,7 @@ router.post('/registrar-usuario-proveedor', (req, res) => {
         tipo: 'Proveedor',
         estado: 'Activo'
     });
+
     nuevoUsuarioProveedor.save((error) => {
         if (error) {
             res.json({
