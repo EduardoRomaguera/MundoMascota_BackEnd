@@ -67,7 +67,7 @@ router.delete('/eliminar-especie', (req, res) => {
             });
         } else {
             res.json({
-                msj: 'Especie eliminada'
+                msj: 'La especie ha sido eliminada'
             });
         }
     });
