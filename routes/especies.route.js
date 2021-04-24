@@ -59,8 +59,7 @@ router.put('/modificar-especie', (req, res) => {
 });
 
 router.delete('/eliminar-especie', (req, res) => {
-
-    Especie.deleteOne({ pid }, (error) => {
+    Especie.deleteOne({ _id: req.body._id }, (error) => {
         if (error) {
             res.json({
                 msj: 'Ocurrió un error al eliminar la especie',
