@@ -1,8 +1,8 @@
 'use strict';
 const express = require('express');
-const Cliente = require('../models/cliente.model');
-//const mailTemplate = require('../templates/registro-cliente');
 const router = express.Router();
+const Cliente = require('../models/cliente.model');
+const mailTemplate = require('../templates/registros-clientes');
 
 router.post('/registrar-usuario-cliente', (req, res) => {
     let nuevoUsuarioCliente = new Cliente({
@@ -27,13 +27,12 @@ router.post('/registrar-usuario-cliente', (req, res) => {
                 error
             });
         } else {
-            //mailTemplate.enviar_mail(req.body.nombre, req.body.correo);
+            mailTemplate.registro_cliente(req.body.nombre, req.body.correo);
             res.json({
                 msj: 'El usuario se registró adecuadamente'
             });
         }
     });
-
 });
 
 router.get('/listar-clientes', (req, res) => {
@@ -53,3 +52,4 @@ router.get('/listar-clientes', (req, res) => {
 });
 
 module.exports = router;
+

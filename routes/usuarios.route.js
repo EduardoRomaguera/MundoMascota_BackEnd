@@ -37,6 +37,7 @@ router.post('/registrar-usuario-proveedor', (req, res) => {
             });
         } else {
             mailTemplate.registro_proveedor(req.body.nombre, req.body.correo);
+            mailTemplate.registro_proveedor_admin(req.body.nombre, req.body.correo);
             res.json({
                 msj: 'El usuario se registró adecuadamente'
             });
