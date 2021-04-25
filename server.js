@@ -57,7 +57,7 @@ app.use('/api', require('./routes/vacunas.route'));
 app.use('/api', require('./routes/razas.route'));
 app.use('/api', require('./routes/padecimientos.route'));
 app.use('/api', require('./routes/especies.route'));
-
+app.use('/api', require('./routes/serviciosCatalogo.route'));
 //Usuarios//
 app.use('/api', require('./routes/usuarios.route'));
 app.use('/api', require('./routes/clientes.route'));
