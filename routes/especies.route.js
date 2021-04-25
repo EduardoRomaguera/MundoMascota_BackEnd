@@ -43,7 +43,7 @@ router.get('/listar-especies', (req, res) => {
 router.put('/modificar-especie', (req, res) => {
     Especie.updateOne({ _id: req.body._id }, {
         $set: req.body
-    }, (err, res) => {
+    }, (err, info) => {
         if (err) {
             res.json({
                 msj: 'No se pudo modificar la especie',

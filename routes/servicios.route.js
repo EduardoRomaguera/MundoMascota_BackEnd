@@ -27,7 +27,7 @@ router.post('/registrar-servicio', (req, res) => {
 
 
 router.get('/listar-servicios', (req, res) => {
-    Especie.find((error, especies) => {
+    Servicio.find((error, servicios) => {
         if (error) {
             res.json({
                 msj: 'Ocurrió un error al listar los servicios',
@@ -42,9 +42,9 @@ router.get('/listar-servicios', (req, res) => {
 });
 
 router.put('/modificar-servicio', (req, res) => {
-    Especie.updateOne({ _id: req.body._id }, {
+    Servicio.updateOne({ _id: req.body._id }, {
         $set: req.body
-    }, (err, res) => {
+    }, (err, info) => {
         if (err) {
             res.json({
                 msj: 'No se pudo modificar el servicio',
@@ -61,7 +61,7 @@ router.put('/modificar-servicio', (req, res) => {
 });
 
 router.delete('/eliminar-servicio', (req, res) => {
-    Especie.deleteOne({ _id: req.body._id }, (error) => {
+    Servicio.deleteOne({ _id: req.body._id }, (error) => {
         if (error) {
             res.json({
                 msj: 'Ocurrió un error al eliminar el servicio',
