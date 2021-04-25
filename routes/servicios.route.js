@@ -1,73 +1,75 @@
 'use strict';
 const express = require('express');
-const Especie = require('../models/especies.model');
+const Servicio = require('../models/servicios.model');
 const router = express.Router();
 
 
 
-router.post('/registrar-especie', (req, res) => {
-    let nuevaEspecie = new Especie({
+router.post('/registrar-servicio', (req, res) => {
+    let nuevoServicio = new Servicio({
         nombre: req.body.nombre,
-        estado: req.body.estado
+        descripcion: req.body.descripcion,
+        costo: req.body.costo
     });
-    nuevaEspecie.save((error) => {
+    nuevoServicio.save((error) => {
         if (error) {
             res.json({
-                msj: 'Ocurrió un error al registrar la especie',
+                msj: 'Ocurrió un error al registrar el servicio',
                 error
             });
         } else {
             res.json({
-                msj: 'La especie se registró correctamente'
+                msj: 'El servicio se registró correctamente '
             });
         }
     });
 });
 
 
-router.get('/listar-especies', (req, res) => {
+router.get('/listar-servicios', (req, res) => {
     Especie.find((error, especies) => {
         if (error) {
             res.json({
-                msj: 'Ocurrió un error al listar las especies',
+                msj: 'Ocurrió un error al listar los servicios',
                 error
             });
         } else {
             res.json({
-                especies
+                servicios
             });
         }
     });
 });
 
-router.put('/modificar-especie', (req, res) => {
+router.put('/modificar-servicio', (req, res) => {
     Especie.updateOne({ _id: req.body._id }, {
         $set: req.body
     }, (err, res) => {
         if (err) {
             res.json({
-                msj: 'No se pudo modificar la especie',
+                msj: 'No se pudo modificar el servicio',
                 err
+
             });
         } else {
             res.json({
-                msj: 'La especie se registró correctamente'
+                msj: 'El servicio se guardó correctamente'
             });
         }
     });
 
 });
 
-router.delete('/eliminar-especie', (req, res) => {
+router.delete('/eliminar-servicio', (req, res) => {
     Especie.deleteOne({ _id: req.body._id }, (error) => {
         if (error) {
             res.json({
-                msj: 'Ocurrió un error al eliminar la especie',
+                msj: 'Ocurrió un error al eliminar el servicio',
                 error
             });
         } else {
             res.json({
-                msj: 'La especie ha sido eliminada'
+                msj: 'El servicio ha sido eliminado'
             });
         }
     });
