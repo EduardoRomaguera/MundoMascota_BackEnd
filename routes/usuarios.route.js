@@ -4,8 +4,8 @@ const router = express.Router();
 const Usuario = require('../models/usuarios.model');
 const mailTemplate = require('../templates/registros-clientes');
 
-
 router.post('/registrar-usuario-proveedor', (req, res) => {
+
     let nuevoUsuarioProveedor = new Usuario({
         nombreNegocio: req.body.nombreNegocio,
         nombre: req.body.nombre,
@@ -43,8 +43,56 @@ router.post('/registrar-usuario-proveedor', (req, res) => {
             });
         }
     });
+});
+
+router.post('/validar-credenciales', (req, res) => {
+    // Estados
+    // Pendiente de autorización (proveedor)
+    // Activo
+    // Inactivo
+    // Bloqueado
+    // Pendiente de cambio de contraseña (cliente)
+
+    Usuario.findOne({ correo: req.body.correo }, (error, usuario) => {
+        if (error) {
+            res.json({
+                msj: 'Ocurrió un error al buscar el usuario',
+                error
+            });
+        } else {
+            if (usuario) {
+                if ((usuario.contrasenna == req.body.contrasenna)) {
+                    res.json({
+                        msj: 'Credenciales válidas',
+                        estado: 'Encontrado',
+                        usuario: {
+                            correo: usuario.correo,
+                            nombre: usuario.nombre,
+                            nacimiento: usuario.nacimiento,
+                            sexo: usuario.sexo,
+                            tipo: usuario.tipo,
+                            estado: usuario.estado
+                        }
+                    });
+                } else {
+                    res.json({
+                        msj: 'Correo o contraseña incorrectos',
+                        estado: 'No encontrado'
+                    });
+                }
+            } else {
+                res.json({
+                    msj: 'Correo o contraseña incorrectos',
+                    estado: 'No encontrado'
+                });
+            }
+
+        }
+
+    });
 
 });
+
 
 module.exports = router;
 

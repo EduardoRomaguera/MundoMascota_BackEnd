@@ -21,7 +21,7 @@ const schema_usuario = mongoose.Schema({
     enlaceInstagram : { type: String, required: false, unique: false },
     enlaceTiktok : { type: String, required: false, unique: false },
     tipo: { type: String, required: true, unique: false },
-    contrasenna: { type: String, required: false, unique: false },
+    password: { type: String, required: false, unique: false },
     estado: { type: String, required: true, unique: false }
 });
 

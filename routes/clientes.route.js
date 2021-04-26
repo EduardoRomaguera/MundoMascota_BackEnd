@@ -5,6 +5,34 @@ const Cliente = require('../models/cliente.model');
 const mailTemplate = require('../templates/registros-clientes');
 
 router.post('/registrar-usuario-cliente', (req, res) => {
+    
+    function letraRandom1() {
+        let letra;
+        let abecedario = "abcdefghijklmnopqrstuvwxyz";
+        letra = abecedario[Math.floor(Math.random() * abecedario.length)];
+        return letra;
+    }
+
+    function letraRandom2() {
+        let letra;
+        let abecedario = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+        letra = abecedario[Math.floor(Math.random() * abecedario.length)];
+        return letra;
+    }
+    
+    let password = "M"
+    for (let i = 0; i < 2; i++) {
+        let numero = Math.floor((Math.random() * 10) + 1);
+        let letra = letraRandom1();
+        let letraM = letraRandom2();
+        password = password.concat(numero);
+        password = password.concat(letra);
+        numero = Math.floor((Math.random() * 10) + 1);
+        password = password.concat(numero);
+        password = password.concat(letraM);
+    }
+    console.log(password);
+
     let nuevoUsuarioCliente = new Cliente({
         nombre: req.body.nombre,
         apellido1: req.body.apellido1,
@@ -17,13 +45,79 @@ router.post('/registrar-usuario-cliente', (req, res) => {
         canton: req.body.canton,
         distrito: req.body.distrito,
         sennas: req.body.sennas,
+        password : password,
         tipo: 'Cliente',
-        estado: 'Activo'
+        estado: 'Preactivo'
     });
     nuevoUsuarioCliente.save((error) => {
         if (error) {
             res.json({
                 msj: 'Ocurrió un error al registrar el usuario',
+                error
+            });
+        } else {
+            mailTemplate.registro_cliente(req.body.nombre, req.body.correo, password);
+            res.json({
+                msj: 'El usuario se registró adecuadamente'
+            });
+        }
+    });
+});
+
+router.post('/validar-credenciales', (req, res) => {
+    // Estados
+    // Pendiente de autorización (proveedor)
+    // Activo
+    // Inactivo
+    // Bloqueado
+    // preactivo = Pendiente de cambio de contraseña (cliente)
+
+    Cliente.findOne({ correo: req.body.correo }, (error, cliente) => {
+        if (error) {
+            res.json({
+                msj: 'Ocurrió un error al buscar el usuario',
+                error
+            });
+        } else {
+            if (cliente) {
+                if ((cliente.password == req.body.password)) {
+                    res.json({
+                        msj: 'Credenciales válidas',
+                        estado: 'Encontrado',
+                        cliente: {
+                            correo: cliente.correo,
+                            nombre: cliente.nombre,
+                            apellido1: cliente.apellido1,
+                            apellido2: cliente.apellido2,
+                            nacimiento: cliente.nacimiento,
+                            tipo: cliente.tipo,
+                            estado: cliente.estado
+                        }
+                    });
+                } else {
+                    res.json({
+                        // msj: 'Correo o contraseña incorrecto 1',
+                        msj: 'ERROR1',
+                        estado: 'No encontrado'
+                    });
+                }
+            } else {
+                res.json({
+                    // msj: 'Correo o contraseña incorrecto 2',
+                    msj: 'ERROR2',
+                    estado: 'No encontrado'
+                });
+            }
+        }
+    });
+
+});
+
+router.get('/listar-clientes', (req, res) => {
+    Clientes.find((error, Clientes) => {
+        if (error) {
+            res.json({
+                msj: 'Ocurrió un error al listar los clientes',
                 error
             });
         } else {
@@ -35,21 +129,4 @@ router.post('/registrar-usuario-cliente', (req, res) => {
     });
 });
 
-router.get('/listar-clientes', (req, res) => {
-    Clientes.find((error, Clientes) => {
-        if (error) {
-            res.json({
-                msj: 'Ocurrió un error al listar los clientes',
-                error
-            });
-        } else {
-            res.json({
-                msj: 'Clientes registrados',
-                Clientes
-            });
-        }
-    });
-});
-
 module.exports = router;
-
