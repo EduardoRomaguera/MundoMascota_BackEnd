@@ -72,43 +72,42 @@ router.post('/validar-credenciales', (req, res) => {
     // Bloqueado
     // preactivo = Pendiente de cambio de contraseña (cliente)
 
-    Cliente.findOne({ correo: req.body.correo }, (error, cliente) => {
+    Cliente.findOne({ correo: req.body.correo }, (error, usuario) => {
         if (error) {
             res.json({
                 msj: 'Ocurrió un error al buscar el usuario',
                 error
             });
         } else {
-            if (cliente) {
-                if ((cliente.password == req.body.password)) {
+            if (usuario) {
+                if ((usuario.password == req.body.password)) {
                     res.json({
                         msj: 'Credenciales válidas',
                         estado: 'Encontrado',
-                        cliente: {
-                            correo: cliente.correo,
-                            nombre: cliente.nombre,
-                            apellido1: cliente.apellido1,
-                            apellido2: cliente.apellido2,
-                            nacimiento: cliente.nacimiento,
-                            tipo: cliente.tipo,
-                            estado: cliente.estado
+                        usuario: {
+                            correo: usuario.correo,
+                            nombre: usuario.nombre,
+                            // nacimiento: usuario.nacimiento,
+                            // sexo: usuario.sexo,
+                            // tipo: usuario.tipo,
+                            estado: usuario.estado
                         }
                     });
                 } else {
                     res.json({
-                        // msj: 'Correo o contraseña incorrecto 1',
-                        msj: 'ERROR1',
+                        msj: 'Correo1 o contraseña incorrectos',
                         estado: 'No encontrado'
                     });
                 }
             } else {
                 res.json({
-                    // msj: 'Correo o contraseña incorrecto 2',
-                    msj: 'ERROR2',
+                    msj: 'Correo2 o contraseña incorrectos',
                     estado: 'No encontrado'
                 });
             }
+
         }
+
     });
 
 });
