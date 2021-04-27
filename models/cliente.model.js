@@ -15,7 +15,7 @@ const schema_cliente = new mongoose.Schema({
     canton: { type: String, reqired: true, unique: false },
     distrito: { type: String, reqired: true, unique: false },
     sennas: { type: String, reqired: true, unique: false },
-    password : { type: String, reqired: true, unique: false },
+    password: { type: String, reqired: true, unique: false },
 });
 
-module.exports = mongoose.model('Cliente', schema_cliente, 'Clientes');
+module.exports = mongoose.model('Cliente', schema_cliente, 'clientes');

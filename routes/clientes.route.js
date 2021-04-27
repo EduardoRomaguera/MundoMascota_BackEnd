@@ -5,7 +5,7 @@ const Cliente = require('../models/cliente.model');
 const mailTemplate = require('../templates/registros-clientes');
 
 router.post('/registrar-usuario-cliente', (req, res) => {
-    
+
     function letraRandom1() {
         let letra;
         let abecedario = "abcdefghijklmnopqrstuvwxyz";
@@ -19,7 +19,7 @@ router.post('/registrar-usuario-cliente', (req, res) => {
         letra = abecedario[Math.floor(Math.random() * abecedario.length)];
         return letra;
     }
-    
+
     let password = "M"
     for (let i = 0; i < 2; i++) {
         let numero = Math.floor((Math.random() * 10) + 1);
@@ -45,7 +45,7 @@ router.post('/registrar-usuario-cliente', (req, res) => {
         canton: req.body.canton,
         distrito: req.body.distrito,
         sennas: req.body.sennas,
-        password : password,
+        password: password,
         tipo: 'Cliente',
         estado: 'Preactivo'
     });
@@ -127,5 +127,25 @@ router.get('/listar-clientes', (req, res) => {
         }
     });
 });
+
+router.put('/modificar-usuario-cliente', (req, res) => {
+    Vacuna.updateOne({ _id: req.body._id }, {
+        $set: req.body
+    }, (err, info) => {
+        if (err) {
+            res.json({
+                msj: 'No se pudo modificar el cliente',
+                err
+            });
+        } else {
+            res.json({
+                msj: 'El cliente se modificó correctamente'
+            });
+        }
+    });
+
+});
+
+
 
 module.exports = router;
