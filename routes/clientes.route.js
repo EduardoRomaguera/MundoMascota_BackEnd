@@ -89,7 +89,7 @@ router.post('/validar-credenciales', (req, res) => {
                             nombre: usuario.nombre,
                             // nacimiento: usuario.nacimiento,
                             // sexo: usuario.sexo,
-                            // tipo: usuario.tipo,
+                            tipo: usuario.tipo,
                             estado: usuario.estado
                         }
                     });
