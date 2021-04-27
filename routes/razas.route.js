@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/registrar-raza', (req, res) => {
     let nuevaRaza = new Raza({
         nombre: req.body.nombre,
-        especie: req.body.expecie,
+        especie: req.body.especie,
         estado: 'Activo'
     });
     nuevaRaza.save((error) => {
