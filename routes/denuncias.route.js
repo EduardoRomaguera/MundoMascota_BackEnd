@@ -7,9 +7,9 @@ const router = express.Router();
 
 router.post('/registrar-denuncia', (req, res) => {
     let nuevaDenuncia = new Denuncia({
-        nombre: req.body.nombre,
-        usuarioBanear: req.body.usuarioBanear,
+        denunciado: req.body.denunciado,
         razon: req.body.razon,
+        explicacion: req.body.explicacion,
     });
     nuevaDenuncia.save((error) => {
         if (error) {
