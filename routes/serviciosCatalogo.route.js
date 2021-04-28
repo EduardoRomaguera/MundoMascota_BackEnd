@@ -8,7 +8,8 @@ const router = express.Router();
 router.post('/registrar-servicioCatalogo', (req, res) => {
     let nuevoServicioCatalogo = new ServicioCatalogo({
         nombre: req.body.nombre,
-        descripcion: req.body.descripcion
+        descripcion: req.body.descripcion,
+        estado: req.body.estado
     });
     nuevoServicioCatalogo.save((error) => {
         if (error) {
