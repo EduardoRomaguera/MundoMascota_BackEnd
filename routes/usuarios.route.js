@@ -26,7 +26,7 @@ router.post('/registrar-usuario-proveedor', (req, res) => {
         enlaceInstagram : req.body.enlaceInstagram,
         enlaceTiktok : req.body.enlaceTiktok,
         tipo: 'Proveedor',
-        estado: 'Activo'
+        estado: 'pendiente'
     });
 
     nuevoUsuarioProveedor.save((error) => {
@@ -45,25 +45,25 @@ router.post('/registrar-usuario-proveedor', (req, res) => {
     });
 });
 
-
+router.get('/listar-proveedores-pendientes', (req, res) => {
+    Usuario.find((error, usuarios) => {
+        if (error) {
+            res.json({
+                msj: 'Ocurrió un error al listar los usuarios',
+                error
+            });
+        } else {
+            res.json({
+                usuarios
+            });
+        }
+    });
+});
 
 module.exports = router;
 
 // Solo se ha modificado el registrar-usuario-proveedor, lo de abajo esta pendiente...
-// router.get('/listar-usuarios', (req, res) => {
-//     Usuario.find((error, usuarios) => {
-//         if (error) {
-//             res.json({
-//                 msj: 'Ocurrió un error al listar los usuarios',
-//                 error
-//             });
-//         } else {
-//             res.json({
-//                 usuarios
-//             });
-//         }
-//     });
-// });
+
 
 // router.get('/buscar-usuario-id', (req, res) => {
 //     Usuario.findOne({ _id: req.query._id }, (error, usuario) => {

@@ -1,7 +1,7 @@
 'use strict';
 const mongoose = require('mongoose');
 
-const schema_usuario = mongoose.Schema({
+const schema_usuario = new mongoose.Schema({
     nombreNegocio: { type: String, required: true, unique: false },
     nombre: { type: String, required: true, unique: false },
     apellido1: { type: String, required: true, unique: false },

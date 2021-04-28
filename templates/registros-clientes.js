@@ -28,7 +28,6 @@ this.registro_proveedor = (pnombre, pcorreo) => {
                     </p>
                     <p  style="color: #fff; text-align:center">
                         Como parte del proceso de registro un agente de Mundo Mascota revisará su aplicación. Tan pronto se complete la revisión le informaremos por este medio.
-                        // <span style="color: #8EE5D8">${pcorreo}</span> 
                     </p>
                 </td>
                 </tr>
