@@ -60,41 +60,6 @@ router.get('/listar-proveedores-pendientes', (req, res) => {
     });
 });
 
-router.put('/aceptar-proveedores-pendientes', (req, res) => {
-    Usuario.updateOne({ correo: req.body.correo }, {
-        $set: req.body
-    }, (err, info) => {
-        if (err) {
-            res.json({
-                msj: 'No se pudo aprobar el proveedor',
-                err
-            });
-        } else {
-            res.json({
-                msj: 'Se aprobó el proveedor correctamente'
-            });
-        }
-    });
-});
-
-router.put('/rechazar-proveedores-pendientes', (req, res) => {
-    Usuario.updateOne({ correo: req.body.correo }, {
-        $set: req.body
-    }, (err, info) => {
-        if (err) {
-            res.json({
-                msj: 'No se pudo rechazar el proveedor',
-                err
-            });
-        } else {
-            res.json({
-                msj: 'Se rechazó el proveedor correctamente'
-            });
-        }
-    });
-});
-
-
 module.exports = router;
 
 // Solo se ha modificado el registrar-usuario-proveedor, lo de abajo esta pendiente...
