@@ -20,17 +20,25 @@ router.post('/registrar-usuario-cliente', (req, res) => {
         return letra;
     }
 
-    let password = "M"
-    for (let i = 0; i < 2; i++) {
-        let numero = Math.floor((Math.random() * 10) + 1);
-        let letra = letraRandom1();
-        let letraM = letraRandom2();
-        password = password.concat(numero);
-        password = password.concat(letra);
-        numero = Math.floor((Math.random() * 10) + 1);
-        password = password.concat(numero);
-        password = password.concat(letraM);
+    function simboloRandom() {
+        let letra;
+        let abecedario = "!@#$%^&*-_+";
+        letra = abecedario[Math.floor(Math.random() * 11)];
+        return letra;
     }
+
+    let password = "M"
+    let simbolo = simboloRandom();
+    let numero = Math.floor((Math.random() * 10) + 1);
+    let letra = letraRandom1();
+    let letraM = letraRandom2();
+    password = password.concat(simbolo);
+    password = password.concat(numero);
+    password = password.concat(letra);
+    numero = Math.floor((Math.random() * 10) + 1);
+    password = password.concat(numero);
+    password = password.concat(letraM);
+    
     console.log(password);
 
     let nuevoUsuarioCliente = new Cliente({
@@ -105,9 +113,24 @@ router.post('/validar-credenciales', (req, res) => {
                     estado: 'No encontrado'
                 });
             }
-
         }
+    });
+});
 
+router.put('/cambiar-contrasenna', (req, res) => {
+    Cliente.updateOne({ correo: req.body.correo }, {
+        $set: req.body
+    }, (error) => {
+        if (error) {
+            res.json({
+                msj: 'No se pudo cambiar la contraseña',
+                error
+            });
+        } else {
+            res.json({
+                msj: 'La contraseña se actualizó correctamente'
+            });
+        }
     });
 
 });

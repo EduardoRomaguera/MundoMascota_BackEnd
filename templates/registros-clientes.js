@@ -127,8 +127,8 @@ this.registro_cliente = (pnombre, pcorreo, ppassword) => {
                     <p  style="color: #fff; text-align:center">
                         El siguiente paso es que ingrese a la plataforma con la siguiente contraseña temporal:
                         <span style="color: #8EE5D8">${ppassword}</span>
+                        <span <a href="http://127.0.0.1:5500/P05-inicio-sesion.html"> Mundo Mascota</a>></span>
                     </p>
-                    <p> <span <a href="http://127.0.0.1:5500/P05-inicio-sesion.html"> Mundo Mascota</a>></span> </p>
                 </td>
                 </tr>
                 <tr bgcolor="#fff">

@@ -18,8 +18,4 @@ const schema_cliente = new mongoose.Schema({
     password: { type: String, reqired: true, unique: false },
 });
 
-<<<<<<< HEAD
 module.exports = mongoose.model('Cliente', schema_cliente, 'clientes');
-=======
-module.exports = mongoose.model('cliente', schema_cliente, 'clientes');
->>>>>>> 8e98361d0129533f736e67be4de3fecc41fdb35c
