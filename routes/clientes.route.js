@@ -38,7 +38,7 @@ router.post('/registrar-usuario-cliente', (req, res) => {
     numero = Math.floor((Math.random() * 10) + 1);
     password = password.concat(numero);
     password = password.concat(letraM);
-    
+
     console.log(password);
 
     let nuevoUsuarioCliente = new Cliente({
@@ -136,7 +136,7 @@ router.put('/cambiar-contrasenna', (req, res) => {
 });
 
 router.get('/listar-clientes', (req, res) => {
-    Clientes.find((error, Clientes) => {
+    Cliente.find((error, clientes) => {
         if (error) {
             res.json({
                 msj: 'Ocurrió un error al listar los clientes',

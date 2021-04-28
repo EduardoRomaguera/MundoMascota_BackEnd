@@ -40,4 +40,39 @@ router.get('/listar-razas', (req, res) => {
         }
     });
 });
+
+
+router.put('/modificar-raza', (req, res) => {
+    Raza.updateOne({ _id: req.body._id }, {
+        $set: req.body
+    }, (err, info) => {
+        if (err) {
+            res.json({
+                msj: 'No se pudo modificar la raza',
+                err
+
+            });
+        } else {
+            res.json({
+                msj: 'La raza se modificó correctamente'
+            });
+        }
+    });
+
+});
+
+router.delete('/eliminar-raza', (req, res) => {
+    Raza.deleteOne({ _id: req.body._id }, (error) => {
+        if (error) {
+            res.json({
+                msj: 'Ocurrió un error al eliminar la raza',
+                error
+            });
+        } else {
+            res.json({
+                msj: 'La raza ha sido eliminada'
+            });
+        }
+    });
+});
 module.exports = router;
