@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/registrar-padecimiento', (req, res) => {
     let nuevoPadecimiento = new Padecimiento({
         nombre: req.body.nombre,
-        especie: req.body.expecie,
+        especie: req.body.especie,
         estado: 'Activo'
     });
     nuevoPadecimiento.save((error) => {
