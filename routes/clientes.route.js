@@ -199,12 +199,24 @@ router.put('/cambiar-contrasenna', (req, res) => {
                 error
             });
         } else {
-            res.json({
-                msj: 'La contraseña se actualizó correctamente'
+
+            Cliente.updateOne({ correo: req.body.correo }, {
+                $set: req.body
+            }, (error) => {
+                if (error) {
+                    res.json({
+                        msj: 'No se pudo cambiar la contraseña',
+                        error
+                    });
+                } else {
+                    res.json({
+                        msj: 'La contraseña se actualizó correctamente'
+                    });
+                }
             });
+
         }
     });
-
 });
 
 router.get('/listar-clientes', (req, res) => {
