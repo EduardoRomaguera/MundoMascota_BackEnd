@@ -10,10 +10,9 @@ router.post('/registrar-tarjeta', (req, res) => {
         idUsuario: req.body.idUsuario,
         nombreTarjeta: req.body.nombreTarjeta,
         numero: req.body.numero,
-        mesExpiracion: req.body,
-        mesExpiracion,
+        mesExpiracion: req.body.mesExpiracion,
         annoExpiracion: req.body.annoExpiracion,
-        codigoSeguridad: req.body.codigoSeguridad,
+        codigoSeguridad: req.body.codigoSeguridad
 
     });
     nuevaTarjeta.save((error) => {
@@ -47,7 +46,7 @@ router.get('/listar-tarjetas', (req, res) => {
 });
 
 router.put('/modificar-tarjeta', (req, res) => {
-    Servicio.updateOne({ _id: req.body._id }, {
+    Tarjeta.updateOne({ _id: req.body._id }, {
         $set: req.body
     }, (err, info) => {
         if (err) {
