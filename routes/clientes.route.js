@@ -2,6 +2,8 @@
 const express = require('express');
 const router = express.Router();
 const Cliente = require('../models/cliente.model');
+const Proveedor = require('../models/usuarios.model');
+const Administrador = require('../models/administrador.model');
 const mailTemplate = require('../templates/registros-clientes');
 
 router.post('/registrar-usuario-cliente', (req, res) => {
@@ -73,14 +75,20 @@ router.post('/registrar-usuario-cliente', (req, res) => {
 });
 
 router.post('/validar-credenciales', (req, res) => {
-    // Estados
-    // Pendiente de autorización (proveedor)
-    // Activo
+    // Estados cliente
+    // 1 preactivo
+    // 2 activo
+
+    // Estados proveedor
+    // 1 pendiente
+    // 2 preactivo2
+    // 3 activo
+
+    // Genéricos
     // Inactivo
     // Bloqueado
     // preactivo = Pendiente de cambio de contraseña (cliente)
-
-    Cliente.findOne({ correo: req.body.correo }, (error, usuario) => {
+    Administrador.findOne({ correo: req.body.correo }, (error, usuario) => {
         if (error) {
             res.json({
                 msj: 'Ocurrió un error al buscar el usuario',
@@ -95,8 +103,6 @@ router.post('/validar-credenciales', (req, res) => {
                         usuario: {
                             correo: usuario.correo,
                             nombre: usuario.nombre,
-                            // nacimiento: usuario.nacimiento,
-                            // sexo: usuario.sexo,
                             tipo: usuario.tipo,
                             estado: usuario.estado
                         }
@@ -108,14 +114,117 @@ router.post('/validar-credenciales', (req, res) => {
                     });
                 }
             } else {
-                res.json({
-                    msj: 'Correo2 o contraseña incorrectos',
-                    estado: 'No encontrado'
+
+                Cliente.findOne({ correo: req.body.correo }, (error, usuario) => {
+                    if (error) {
+                        res.json({
+                            msj: 'Ocurrió un error al buscar el usuario',
+                            error
+                        });
+                    } else {
+                        if (usuario) {
+                            if ((usuario.password == req.body.password)) {
+                                res.json({
+                                    msj: 'Credenciales válidas',
+                                    estado: 'Encontrado',
+                                    usuario: {
+                                        correo: usuario.correo,
+                                        nombre: usuario.nombre,
+                                        tipo: usuario.tipo,
+                                        estado: usuario.estado
+                                    }
+                                });
+                            } else {
+                                res.json({
+                                    msj: 'Correo1 o contraseña incorrectos',
+                                    estado: 'No encontrado'
+                                });
+                            }
+                        } else {
+
+                            Proveedor.findOne({ correo: req.body.correo }, (error, usuario) => {
+                                if (error) {
+                                    res.json({
+                                        msj: 'Ocurrió un error al buscar el usuario',
+                                        error
+                                    });
+                                } else {
+                                    if (usuario) {
+                                        if ((usuario.password == req.body.password)) {
+                                            res.json({
+                                                msj: 'Credenciales válidas',
+                                                estado: 'Encontrado',
+                                                usuario: {
+                                                    correo: usuario.correo,
+                                                    nombre: usuario.nombre,
+                                                    tipo: usuario.tipo,
+                                                    estado: usuario.estado
+                                                }
+                                            });
+                                        } else {
+                                            res.json({
+                                                msj: 'Correo1 o contraseña incorrectos',
+                                                estado: 'No encontrado'
+                                            });
+                                        }
+                                    } else {
+                                        res.json({
+                                            msj: 'Correo2 o contraseña incorrectos',
+                                            estado: 'No encontrado'
+                                        });
+                                    }
+                                }
+                            });
+
+
+                        }
+                    }
                 });
+
+
+
             }
         }
     });
 });
+    
+    
+//     Cliente.findOne({ correo: req.body.correo }, (error, usuario) => {
+//     Proveedor.findOne({ correo: req.body.correo }, (error, usuario) => {
+//     Administrador.findOne({ correo: req.body.correo }, (error, usuario) => {
+//         if (error) {
+//             res.json({
+//                 msj: 'Ocurrió un error al buscar el usuario',
+//                 error
+//             });
+//         } else {
+//             if (usuario) {
+//                 if ((usuario.password == req.body.password)) {
+//                     res.json({
+//                         msj: 'Credenciales válidas',
+//                         estado: 'Encontrado',
+//                         usuario: {
+//                             correo: usuario.correo,
+//                             nombre: usuario.nombre,
+//                             tipo: usuario.tipo,
+//                             estado: usuario.estado
+//                         }
+//                     });
+//                 } else {
+//                     res.json({
+//                         msj: 'Correo1 o contraseña incorrectos',
+//                         estado: 'No encontrado'
+//                     });
+//                 }
+//             } else {
+//                 res.json({
+//                     msj: 'Correo2 o contraseña incorrectos',
+//                     estado: 'No encontrado'
+//                 });
+//             }
+//         }
+//     });
+// });
 
 router.put('/cambiar-contrasenna', (req, res) => {
     Cliente.updateOne({ correo: req.body.correo }, {
