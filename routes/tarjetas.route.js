@@ -7,14 +7,14 @@ const router = express.Router();
 
 router.post('/registrar-tarjeta', (req, res) => {
     let nuevaTarjeta = new Tarjeta({
-
+        idUsuario: req.body.idUsuario,
         nombreTarjeta: req.body.nombreTarjeta,
         numero: req.body.numero,
         mesExpiracion: req.body,
         mesExpiracion,
         annoExpiracion: req.body.annoExpiracion,
         codigoSeguridad: req.body.codigoSeguridad,
-        idUsuario: req.body.idUsuario
+
     });
     nuevaTarjeta.save((error) => {
         if (error) {
