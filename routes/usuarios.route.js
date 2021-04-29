@@ -70,6 +70,48 @@ router.put('/aceptar-proveedores-pendientes', (req, res) => {
                 err
             });
         } else {
+            function letraRandom1() {
+                let letra;
+                let abecedario = "abcdefghijklmnopqrstuvwxyz";
+                letra = abecedario[Math.floor(Math.random() * abecedario.length)];
+                return letra;
+            }
+        
+            function letraRandom2() {
+                let letra;
+                let abecedario = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+                letra = abecedario[Math.floor(Math.random() * abecedario.length)];
+                return letra;
+            }
+        
+            function simboloRandom() {
+                let letra;
+                let abecedario = "!@#$%^&*-_+";
+                letra = abecedario[Math.floor(Math.random() * 11)];
+                return letra;
+            }
+
+            let password = "M"
+            let simbolo = simboloRandom();
+            let numero = Math.floor((Math.random() * 10) + 1);
+            let letra = letraRandom1();
+            let letraM = letraRandom2();
+            password = password.concat(simbolo);
+            password = password.concat(numero);
+            password = password.concat(letra);
+            numero = Math.floor((Math.random() * 10) + 1);
+            password = password.concat(numero);
+            password = password.concat(letraM);
+            let link = "http://"
+            link = link.concat("127.0.0.1:5500/P05b-nueva-contrasenna.html");
+            link = link.concat("?");
+            link = link.concat("correo");
+            link = link.concat("=");
+            link = link.concat(req.body.correo);
+
+            console.log(link);
+            // ?variable=value
+            mailTemplate.aprobar_proveedor(req.body.correo, req.body.nombreNegocio, link);
             res.json({
                 msj: 'Se aprobó el proveedor correctamente'
             });
@@ -87,6 +129,7 @@ router.put('/rechazar-proveedores-pendientes', (req, res) => {
                 err
             });
         } else {
+            mailTemplate.rechazar_proveedor(req.body.correo, req.body.nombreNegocio);
             res.json({
                 msj: 'Se rechazó el proveedor correctamente'
             });

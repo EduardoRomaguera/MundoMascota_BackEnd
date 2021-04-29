@@ -187,47 +187,10 @@ router.post('/validar-credenciales', (req, res) => {
         }
     });
 });
-    
-    
-//     Cliente.findOne({ correo: req.body.correo }, (error, usuario) => {
-//     Proveedor.findOne({ correo: req.body.correo }, (error, usuario) => {
-//     Administrador.findOne({ correo: req.body.correo }, (error, usuario) => {
-//         if (error) {
-//             res.json({
-//                 msj: 'Ocurrió un error al buscar el usuario',
-//                 error
-//             });
-//         } else {
-//             if (usuario) {
-//                 if ((usuario.password == req.body.password)) {
-//                     res.json({
-//                         msj: 'Credenciales válidas',
-//                         estado: 'Encontrado',
-//                         usuario: {
-//                             correo: usuario.correo,
-//                             nombre: usuario.nombre,
-//                             tipo: usuario.tipo,
-//                             estado: usuario.estado
-//                         }
-//                     });
-//                 } else {
-//                     res.json({
-//                         msj: 'Correo1 o contraseña incorrectos',
-//                         estado: 'No encontrado'
-//                     });
-//                 }
-//             } else {
-//                 res.json({
-//                     msj: 'Correo2 o contraseña incorrectos',
-//                     estado: 'No encontrado'
-//                 });
-//             }
-//         }
-//     });
-// });
 
 router.put('/cambiar-contrasenna', (req, res) => {
-    Cliente.updateOne({ correo: req.body.correo }, {
+    Proveedor.updateOne({ correo: req.body.correo }, {
+    // Cliente.updateOne({ correo: req.body.correo }, {
         $set: req.body
     }, (error) => {
         if (error) {
@@ -236,12 +199,24 @@ router.put('/cambiar-contrasenna', (req, res) => {
                 error
             });
         } else {
-            res.json({
-                msj: 'La contraseña se actualizó correctamente'
+
+            Cliente.updateOne({ correo: req.body.correo }, {
+                $set: req.body
+            }, (error) => {
+                if (error) {
+                    res.json({
+                        msj: 'No se pudo cambiar la contraseña',
+                        error
+                    });
+                } else {
+                    res.json({
+                        msj: 'La contraseña se actualizó correctamente'
+                    });
+                }
             });
+
         }
     });
-
 });
 
 router.get('/listar-clientes', (req, res) => {
@@ -252,7 +227,6 @@ router.get('/listar-clientes', (req, res) => {
                 error
             });
         } else {
-            mailTemplate.registro_cliente(req.body.nombre, req.body.correo);
             res.json({
                 msj: 'El usuario se registró adecuadamente'
             });
