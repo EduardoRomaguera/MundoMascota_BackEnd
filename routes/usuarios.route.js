@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const Usuario = require('../models/usuarios.model');
+const Proveedor = require('../models/usuarios.model');
 const mailTemplate = require('../templates/registros-clientes');
 
 router.post('/registrar-usuario-proveedor', (req, res) => {
@@ -45,8 +46,65 @@ router.post('/registrar-usuario-proveedor', (req, res) => {
     });
 });
 
+router.post('/cargar-datos-proveedor', (req, res) => {
+
+    Proveedor.findOne({ correo: req.body.correo }, (error, usuario) => {
+        if (error) {
+            res.json({
+                msj: 'Ocurrió un error al buscar el usuario',
+                error
+            });
+        } else {
+            console.log(usuario)
+            if (usuario) {
+                console.log(usuario)
+                if ((usuario.correo == req.body.correo)) {
+                    res.json({
+                        msj: 'Credenciales válidas',
+                        estado: 'Encontrado',
+                        usuario
+                    });
+                } else {
+                    res.json({
+                        msj: 'Correo1 o contraseña incorrectos',
+                        estado: 'No encontrado'
+                    });
+                }
+            } else {
+                res.json({
+                    msj: 'Correo2 o contraseña incorrectos',
+                    estado: 'No encontrado'
+                });
+            }
+        }
+    });
+
+});
+
+router.get('/cargar-datos-proveedor2', (req, res) => {
+    // Usuario.find((error, usuarios) => {
+        // find({}, { projection: { nomb: 0, name: 1, address: 1 } }).toArray(function(err, result) {
+    Proveedor.find((error, usuarios) => {
+    // Usuario.find((error, usuarios) => {
+        console.log("test")
+        console.log(usuarios)
+        console.log("test")
+        if (error) {
+            res.json({
+                msj: 'Ocurrió un error al listar los usuarios',
+                error
+            });
+        } else {
+            res.json({
+                usuarios
+            });
+        }
+    });
+});
+
 router.get('/listar-proveedores-pendientes', (req, res) => {
-    Usuario.find((error, usuarios) => {
+    Usuario.findOne((error, usuarios) => {
+        // console.log(usuarios)
         if (error) {
             res.json({
                 msj: 'Ocurrió un error al listar los usuarios',
@@ -136,121 +194,4 @@ router.put('/rechazar-proveedores-pendientes', (req, res) => {
         }
     });
 });
-
-
 module.exports = router;
-
-// Solo se ha modificado el registrar-usuario-proveedor, lo de abajo esta pendiente...
-
-
-// router.get('/buscar-usuario-id', (req, res) => {
-//     Usuario.findOne({ _id: req.query._id }, (error, usuario) => {
-//         if (error) {
-//             res.json({
-//                 msj: 'Ocurrió un error al listar el usuario',
-//                 error
-//             });
-//         } else {
-//             res.json({
-//                 usuario
-//             });
-//         }
-//     });
-// });
-
-// router.get('/buscar-usuario-correo', (req, res) => {
-//     Usuario.findOne({ correo: req.query.correo }, (error, usuario) => {
-//         if (error) {
-//             res.json({
-//                 msj: 'Ocurrió un error al listar el usuario',
-//                 error
-//             });
-//         } else {
-//             res.json({
-//                 usuario
-//             });
-//         }
-//     });
-// });
-
-// router.delete('/eliminar-usuario', (req, res) => {
-//     Usuario.deleteOne({ correo: req.body.correo }, (error) => {
-//         if (error) {
-//             res.json({
-//                 msj: 'Ocurrió un error al eliminar el usuario',
-//                 error
-//             });
-//         } else {
-//             res.json({
-//                 msj: 'Usuario eliminado correctamente'
-//             });
-//         }
-
-//     });
-// });
-
-// router.put('/modificar-usuario', (req, res) => {
-//     Usuario.updateOne({ correo: req.body.correo }, {
-//         $set: req.body
-//     }, (error) => {
-//         if (error) {
-//             res.json({
-//                 msj: 'El usuario no se pudo modificar',
-//                 error
-//             });
-//         } else {
-//             res.json({
-//                 msj: 'El usuario se  modificó correctamente'
-//             });
-//         }
-//     });
-
-// });
-
-// router.post('/validar-credenciales', (req, res) => {
-//     // Estados
-//     // Pendiente de autorización (proveedor)
-//     // Activo
-//     // Inactivo
-//     // Bloqueado
-//     // Pendiente de cambio de contraseña (cliente)
-
-//     Usuario.findOne({ correo: req.body.correo }, (error, usuario) => {
-//         if (error) {
-//             res.json({
-//                 msj: 'Ocurrió un error al buscar el usuario',
-//                 error
-//             });
-//         } else {
-//             if (usuario) {
-//                 if ((usuario.contrasenna == req.body.contrasenna)) {
-//                     res.json({
-//                         msj: 'Credenciales válidas',
-//                         estado: 'Encontrado',
-//                         usuario: {
-//                             correo: usuario.correo,
-//                             nombre: usuario.nombre,
-//                             nacimiento: usuario.nacimiento,
-//                             sexo: usuario.sexo,
-//                             tipo: usuario.tipo,
-//                             estado: usuario.estado
-//                         }
-//                     });
-//                 } else {
-//                     res.json({
-//                         msj: 'Correo o contraseña incorrectos',
-//                         estado: 'No encontrado'
-//                     });
-//                 }
-//             } else {
-//                 res.json({
-//                     msj: 'Correo o contraseña incorrectos',
-//                     estado: 'No encontrado'
-//                 });
-//             }
-
-//         }
-
-//     });
-
-// });
