@@ -26,6 +26,11 @@ router.post('/registrar-usuario-proveedor', (req, res) => {
         enlaceFacebook : req.body.enlaceFacebook,
         enlaceInstagram : req.body.enlaceInstagram,
         enlaceTiktok : req.body.enlaceTiktok,
+        nombreR:  req.body.nombreR,
+        apellido1R:  req.body.apellido1R,
+        apellido2R:  req.body.apellido2R,
+        correoR:  req.body.correoR,
+        ubicacion :  req.body.ubicacion,
         tipo: 'Proveedor',
         estado: 'pendiente'
     });
@@ -103,8 +108,7 @@ router.get('/cargar-datos-proveedor2', (req, res) => {
 });
 
 router.get('/listar-proveedores-pendientes', (req, res) => {
-    Usuario.findOne((error, usuarios) => {
-        // console.log(usuarios)
+    Usuario.find((error, usuarios) => {
         if (error) {
             res.json({
                 msj: 'Ocurrió un error al listar los usuarios',

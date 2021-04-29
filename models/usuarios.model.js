@@ -22,7 +22,12 @@ const schema_usuario = new mongoose.Schema({
     enlaceTiktok : { type: String, required: false, unique: false },
     tipo: { type: String, required: true, unique: false },
     password: { type: String, required: false, unique: false },
-    estado: { type: String, required: true, unique: false }
+    estado: { type: String, required: true, unique: false },
+    nombreR: { type: String, required: false, unique: false },
+    apellido1R: { type: String, required: false, unique: false },
+    apellido2R: { type: String, required: false, unique: false },
+    correoR: { type: String, required: false, unique: false },
+    ubicacion : { type: String, required: false, unique: false }
 });
 
 module.exports = mongoose.model('Usuario', schema_usuario, 'usuarios');
