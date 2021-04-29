@@ -46,4 +46,19 @@ router.get('/listar-patrocinadores', (req, res) => {
 });
 
 
+router.delete('/eliminar-patrociador', (req, res) => {
+    Patrocinador.deleteOne({ _id: req.body._id }, (error) => {
+        if (error) {
+            res.json({
+                msj: 'Ocurrió un error al eliminar el patrocinador',
+                error
+            });
+        } else {
+            res.json({
+                msj: 'el patrocinador fue eliminado con exito'
+            });
+        }
+    });
+});
+
 module.exports = router;
