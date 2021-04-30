@@ -433,14 +433,42 @@ router.get('/listar-clientes', (req, res) => {
             });
         } else {
             res.json({
-                msj: 'El usuario se registró adecuadamente'
+                clientes
             });
         }
     });
 });
 
-router.put('/modificar-usuario-cliente', (req, res) => {
-    Vacuna.updateOne({ _id: req.body._id }, {
+router.delete('/borrar-proveedor', (req, res) => {
+    Proveedor.deleteOne({ correo: req.body.correo }, (error) => {
+        if (error) {
+            res.json({
+                msj: 'Hubo un error'
+            });
+        } else {
+            res.json({
+                msj: 'Usuario eliminado correctamente'
+            });
+        }
+    });
+});
+
+router.delete('/borrar-cliente', (req, res) => {
+    Cliente.deleteOne({ correo: req.body.correo }, (error) => {
+        if (error) {
+            res.json({
+                msj: 'Hubo un error'
+            });
+        } else {
+            res.json({
+                msj: 'Usuario eliminado correctamente2'
+            });
+        }
+    });
+});
+
+router.put('/cambiar-cliente', (req, res) => {
+    Cliente.updateOne({ correo: req.body.correo }, {
         $set: req.body
     }, (err, info) => {
         if (err) {
@@ -450,11 +478,10 @@ router.put('/modificar-usuario-cliente', (req, res) => {
             });
         } else {
             res.json({
-                msj: 'El cliente se modificó correctamente'
+                msj: 'Se modificó el cliente correctamenteS'
             });
         }
     });
-
 });
 
 router.post('/cargar-datos-cliente', (req, res) => {
