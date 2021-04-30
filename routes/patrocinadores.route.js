@@ -30,7 +30,7 @@ router.post('/registrar-patrocinador', (req, res) => {
     });
 });
 
-router.get('/listar-patrocinadores', (req, res) => {
+router.post('/listar-patrocinadores', (req, res) => {
     Patrocinador.find((error, patrocinadores) => {
         if (error) {
             res.json({
@@ -42,6 +42,7 @@ router.get('/listar-patrocinadores', (req, res) => {
                 patrocinadores
             });
         }
+        console.log(patrocinadores);
     });
 });
 
