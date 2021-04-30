@@ -424,6 +424,50 @@ router.put('/cambiar-contrasenna', (req, res) => {
     });
 });
 
+router.put('/cambiar-datos', (req, res) => {
+    Proveedor.updateOne({ correo: req.body.correo }, {
+    // Cliente.updateOne({ correo: req.body.correo }, {
+        $set: req.body
+    }, (error) => {
+        if (error) {
+            res.json({
+                msj: 'No se pudo actualizar la información',
+                error
+            });
+        } else {
+
+            Cliente.updateOne({ correo: req.body.correo }, {
+                $set: req.body
+            }, (error) => {
+                if (error) {
+                    res.json({
+                        msj: 'No se pudo actualizar la información',
+                        error
+                    });
+                } else {
+
+                    Administrador.updateOne({ correo: req.body.correo }, {
+                        $set: req.body
+                    }, (error) => {
+                        if (error) {
+                            res.json({
+                                msj: 'No se pudo actualizar la información',
+                                error
+                            });
+                        } else {
+                            res.json({
+                                msj: 'La información se actualizó correctamente'
+                            });
+                        }
+                    });
+
+                }
+            });
+
+        }
+    });
+});
+
 router.get('/listar-clientes', (req, res) => {
     Cliente.find((error, clientes) => {
         if (error) {
