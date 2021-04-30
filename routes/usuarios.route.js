@@ -86,6 +86,8 @@ router.post('/cargar-datos-proveedor', (req, res) => {
 
 });
 
+
+//El siguiente router se usa para listar proveedores en varias páginas, devuelve todos los usuarios de tipo proveedor
 router.get('/listar-proveedores-pendientes', (req, res) => {
     Usuario.find((error, usuarios) => {
         if (error) {
