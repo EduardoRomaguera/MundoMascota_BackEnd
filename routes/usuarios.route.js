@@ -86,27 +86,6 @@ router.post('/cargar-datos-proveedor', (req, res) => {
 
 });
 
-router.get('/cargar-datos-proveedor2', (req, res) => {
-    // Usuario.find((error, usuarios) => {
-        // find({}, { projection: { nomb: 0, name: 1, address: 1 } }).toArray(function(err, result) {
-    Proveedor.find((error, usuarios) => {
-    // Usuario.find((error, usuarios) => {
-        console.log("test")
-        console.log(usuarios)
-        console.log("test")
-        if (error) {
-            res.json({
-                msj: 'Ocurrió un error al listar los usuarios',
-                error
-            });
-        } else {
-            res.json({
-                usuarios
-            });
-        }
-    });
-});
-
 router.get('/listar-proveedores-pendientes', (req, res) => {
     Usuario.find((error, usuarios) => {
         if (error) {

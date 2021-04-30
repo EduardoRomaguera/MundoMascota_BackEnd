@@ -457,6 +457,39 @@ router.put('/modificar-usuario-cliente', (req, res) => {
 
 });
 
+router.post('/cargar-datos-cliente', (req, res) => {
 
+    Cliente.findOne({ correo: req.body.correo }, (error, usuario) => {
+        if (error) {
+            res.json({
+                msj: 'Ocurrió un error al buscar el usuario',
+                error
+            });
+        } else {
+            console.log(usuario)
+            if (usuario) {
+                console.log(usuario)
+                if ((usuario.correo == req.body.correo)) {
+                    res.json({
+                        msj: 'Credenciales válidas',
+                        estado: 'Encontrado',
+                        usuario
+                    });
+                } else {
+                    res.json({
+                        msj: 'Correo1 o contraseña incorrectos',
+                        estado: 'No encontrado'
+                    });
+                }
+            } else {
+                res.json({
+                    msj: 'Correo2 o contraseña incorrectos',
+                    estado: 'No encontrado'
+                });
+            }
+        }
+    });
+
+});
 
 module.exports = router;
