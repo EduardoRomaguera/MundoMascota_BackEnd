@@ -74,6 +74,202 @@ router.post('/registrar-usuario-cliente', (req, res) => {
     });
 });
 
+//Router para recuperar contraseña FALTA AGREGAR CODIGO DE MODIFICAR CONTRASENNA EN EL BACK
+router.put('/reset', (req, res) => {
+    Proveedor.updateOne({ correo: req.body.correo }, {
+        $set: req.body
+    }, (err, info) => {
+        if (info.n == 1) {
+        console.log(info.n);
+        if (err) {
+            console.log(adad);
+            res.json({
+                msj: 'No se pudo solicitar el cambio',
+                err
+            });
+        } else {
+            function letraRandom1() {
+                let letra;
+                let abecedario = "abcdefghijklmnopqrstuvwxyz";
+                letra = abecedario[Math.floor(Math.random() * abecedario.length)];
+                return letra;
+            }
+        
+            function letraRandom2() {
+                let letra;
+                let abecedario = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+                letra = abecedario[Math.floor(Math.random() * abecedario.length)];
+                return letra;
+            }
+        
+            function simboloRandom() {
+                let letra;
+                let abecedario = "!@#$%^&*-_+";
+                letra = abecedario[Math.floor(Math.random() * 11)];
+                return letra;
+            }
+
+            let password = "M"
+            let simbolo = simboloRandom();
+            let numero = Math.floor((Math.random() * 10) + 1);
+            let letra = letraRandom1();
+            let letraM = letraRandom2();
+            password = password.concat(simbolo);
+            password = password.concat(numero);
+            password = password.concat(letra);
+            numero = Math.floor((Math.random() * 10) + 1);
+            password = password.concat(numero);
+            password = password.concat(letraM);
+            let link = "http://"
+            link = link.concat("127.0.0.1:5500/P05b-nueva-contrasenna.html");
+            link = link.concat("?");
+            link = link.concat("correo");
+            link = link.concat("=");
+            link = link.concat(req.body.correo);
+
+            console.log(link);
+            // ?variable=value
+            if (info.n == 1){
+            mailTemplate.nueva_contrasenna(req.body.correo, link);
+            res.json({
+                msj: info.n
+            });
+            }
+        }
+    } else {
+        Cliente.updateOne({ correo: req.body.correo }, {
+            $set: req.body
+        }, (err, info) => {
+            if (info.n == 1) {
+            console.log(info.n);
+            if (err) {
+                console.log(adad);
+                res.json({
+                    msj: 'No se pudo solicitar el cambio',
+                    err
+                });
+            } else {
+                function letraRandom1() {
+                    let letra;
+                    let abecedario = "abcdefghijklmnopqrstuvwxyz";
+                    letra = abecedario[Math.floor(Math.random() * abecedario.length)];
+                    return letra;
+                }
+            
+                function letraRandom2() {
+                    let letra;
+                    let abecedario = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+                    letra = abecedario[Math.floor(Math.random() * abecedario.length)];
+                    return letra;
+                }
+            
+                function simboloRandom() {
+                    let letra;
+                    let abecedario = "!@#$%^&*-_+";
+                    letra = abecedario[Math.floor(Math.random() * 11)];
+                    return letra;
+                }
+    
+                let password = "M"
+                let simbolo = simboloRandom();
+                let numero = Math.floor((Math.random() * 10) + 1);
+                let letra = letraRandom1();
+                let letraM = letraRandom2();
+                password = password.concat(simbolo);
+                password = password.concat(numero);
+                password = password.concat(letra);
+                numero = Math.floor((Math.random() * 10) + 1);
+                password = password.concat(numero);
+                password = password.concat(letraM);
+                let link = "http://"
+                link = link.concat("127.0.0.1:5500/P05b-nueva-contrasenna.html");
+                link = link.concat("?");
+                link = link.concat("correo");
+                link = link.concat("=");
+                link = link.concat(req.body.correo);
+    
+                console.log(link);
+                // ?variable=value
+                if (info.n == 1){
+                mailTemplate.nueva_contrasenna(req.body.correo, link);
+                res.json({
+                    msj: info.n
+                });
+                }
+            }
+        } else {
+            Administrador.updateOne({ correo: req.body.correo }, {
+                $set: req.body
+            }, (err, info) => {
+                if (info.n == 1) {
+                console.log(info.n);
+                if (err) {
+                    console.log(adad);
+                    res.json({
+                        msj: 'No se pudo solicitar el cambio',
+                        err
+                    });
+                } else {
+                    function letraRandom1() {
+                        let letra;
+                        let abecedario = "abcdefghijklmnopqrstuvwxyz";
+                        letra = abecedario[Math.floor(Math.random() * abecedario.length)];
+                        return letra;
+                    }
+                
+                    function letraRandom2() {
+                        let letra;
+                        let abecedario = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+                        letra = abecedario[Math.floor(Math.random() * abecedario.length)];
+                        return letra;
+                    }
+                
+                    function simboloRandom() {
+                        let letra;
+                        let abecedario = "!@#$%^&*-_+";
+                        letra = abecedario[Math.floor(Math.random() * 11)];
+                        return letra;
+                    }
+        
+                    let password = "M"
+                    let simbolo = simboloRandom();
+                    let numero = Math.floor((Math.random() * 10) + 1);
+                    let letra = letraRandom1();
+                    let letraM = letraRandom2();
+                    password = password.concat(simbolo);
+                    password = password.concat(numero);
+                    password = password.concat(letra);
+                    numero = Math.floor((Math.random() * 10) + 1);
+                    password = password.concat(numero);
+                    password = password.concat(letraM);
+                    let link = "http://"
+                    link = link.concat("127.0.0.1:5500/P05b-nueva-contrasenna.html");
+                    link = link.concat("?");
+                    link = link.concat("correo");
+                    link = link.concat("=");
+                    link = link.concat(req.body.correo);
+        
+                    console.log(link);
+                    // ?variable=value
+                    if (info.n == 1){
+                    mailTemplate.nueva_contrasenna(req.body.correo, link);
+                    res.json({
+                        msj: info.n
+                    });
+                    }
+                }
+            } else {
+                
+            }
+            });
+        }
+        });
+    }
+    });
+});
+
+
+
 router.post('/validar-credenciales', (req, res) => {
     // Estados cliente
     // 1 preactivo
@@ -175,13 +371,9 @@ router.post('/validar-credenciales', (req, res) => {
                                     }
                                 }
                             });
-
-
                         }
                     }
                 });
-
-
 
             }
         }
@@ -209,9 +401,22 @@ router.put('/cambiar-contrasenna', (req, res) => {
                         error
                     });
                 } else {
-                    res.json({
-                        msj: 'La contraseña se actualizó correctamente'
+
+                    Administrador.updateOne({ correo: req.body.correo }, {
+                        $set: req.body
+                    }, (error) => {
+                        if (error) {
+                            res.json({
+                                msj: 'No se pudo cambiar la contraseña',
+                                error
+                            });
+                        } else {
+                            res.json({
+                                msj: 'La contraseña se actualizó correctamente'
+                            });
+                        }
                     });
+
                 }
             });
 
