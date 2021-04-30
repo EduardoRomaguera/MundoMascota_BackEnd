@@ -1,6 +1,6 @@
 'use strict';
 const express = require('express');
-const Tarjeta = require('../models/mascotas.model');
+const Mascota = require('../models/mascotas.model');
 const router = express.Router();
 
 
@@ -10,7 +10,7 @@ router.post('/registrar-mascota', (req, res) => {
     if (req.body.imagen) {
         imagen = req.body.imagen;
     }
-    let nuevaTarjeta = new Tarjeta({
+    let nuevaMascota = new Mascota({
         correoUsuario: req.body.correoUsuario,
         nombre: req.body.nombre,
         especie: req.body.especie,
@@ -19,7 +19,7 @@ router.post('/registrar-mascota', (req, res) => {
         imagen: imagen
 
     });
-    nuevaTarjeta.save((error) => {
+    nuevaMascota.save((error) => {
         if (error) {
             res.json({
                 msj: 'Ocurrió un error al registrar la mascota',
