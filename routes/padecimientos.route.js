@@ -43,7 +43,7 @@ router.get('/listar-padecimientos', (req, res) => {
 
 
 router.delete('/eliminar-padecimiento', (req, res) => {
-    Mascota.deleteOne({ _id: req.body._id }, (error) => {
+    Padecimiento.deleteOne({ _id: req.body._id }, (error) => {
         if (error) {
             res.json({
                 msj: 'Ocurrió un error al eliminar el padecimiento',
