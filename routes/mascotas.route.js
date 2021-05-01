@@ -13,10 +13,11 @@ router.post('/registrar-mascota', (req, res) => {
     let nuevaMascota = new Mascota({
         correoUsuario: req.body.correoUsuario,
         nombre: req.body.nombre,
+        telefono: req.body.telefono,
         especie: req.body.especie,
         raza: req.body.raza,
-        estado: req.body.estado,
-        imagen: imagen
+        estado: 'Activo',
+        imagen: req.body.imagen
 
     });
     nuevaMascota.save((error) => {
