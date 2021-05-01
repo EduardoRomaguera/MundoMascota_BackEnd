@@ -9,6 +9,7 @@ router.post('/registrar-mascota', (req, res) => {
     let imagen = '';
     if (req.body.imagen) {
         imagen = req.body.imagen;
+        console.log(imagen);
     }
     let nuevaMascota = new Mascota({
         correoUsuario: req.body.correoUsuario,
@@ -17,7 +18,7 @@ router.post('/registrar-mascota', (req, res) => {
         especie: req.body.especie,
         raza: req.body.raza,
         estado: 'Activo',
-        imagen: req.body.imagen
+        imagen: imagen
 
     });
     nuevaMascota.save((error) => {
@@ -50,7 +51,7 @@ router.get('/listar-mascotas', (req, res) => {
 });
 
 router.put('/modificar-tarjeta', (req, res) => {
-    Tarjeta.updateOne({ _id: req.body._id }, {
+    Mascota.updateOne({ _id: req.body._id }, {
         $set: req.body
     }, (err, info) => {
         if (err) {
@@ -68,16 +69,16 @@ router.put('/modificar-tarjeta', (req, res) => {
 
 });
 
-router.delete('/eliminar-tarjeta', (req, res) => {
-    Tarjeta.deleteOne({ _id: req.body._id }, (error) => {
+router.delete('/eliminar-mascota', (req, res) => {
+    Mascota.deleteOne({ _id: req.body._id }, (error) => {
         if (error) {
             res.json({
-                msj: 'Ocurrió un error al eliminar la tarjeta',
+                msj: 'Ocurrió un error al eliminar la mascota',
                 error
             });
         } else {
             res.json({
-                msj: 'La tarjeta ha ha sido eliminado'
+                msj: 'La mascota ha sido eliminada'
             });
         }
     });
