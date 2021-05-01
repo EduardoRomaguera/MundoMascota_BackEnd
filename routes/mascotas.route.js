@@ -50,19 +50,19 @@ router.get('/listar-mascotas', (req, res) => {
     });
 });
 
-router.put('/modificar-tarjeta', (req, res) => {
+router.put('/modificar-mascota', (req, res) => {
     Mascota.updateOne({ _id: req.body._id }, {
         $set: req.body
     }, (err, info) => {
         if (err) {
             res.json({
-                msj: 'No se pudo modificar la tarjeta',
+                msj: 'No se pudo modificar la mascota',
                 err
 
             });
         } else {
             res.json({
-                msj: 'La tarjeta se guardó correctamente'
+                msj: 'La mascota se modificó correctamente'
             });
         }
     });
